@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.Scripts
+namespace UniFsm
 {
     public abstract class StateBehaviour<TState>
         where TState : Enum

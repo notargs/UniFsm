@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.Scripts
+namespace UniFsm
 {
     public readonly struct OptionalEnum<TEnum> where TEnum : Enum
     {

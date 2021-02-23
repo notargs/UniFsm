@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Game.Scripts
+namespace UniFsm
 {
     public sealed class StateMachine<TState> : IDisposable
         where TState : Enum

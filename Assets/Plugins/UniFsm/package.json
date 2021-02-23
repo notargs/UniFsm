@@ -1,0 +1,9 @@
+{
+  "name": "com.notargs.unifsm",
+  "displayName": "UniFsm",
+  "version": "1.0.0",
+  "unity": "2020.2",
+  "description": "Simple Fsm framework for Unity",
+  "license": "MIT",
+  "dependencies": {}
+}
