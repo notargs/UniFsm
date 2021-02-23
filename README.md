@@ -8,7 +8,7 @@ Add this line in Packages/manifest.json directly.
 "com.notargs.unifsm": "https://github.com/notargs/UniFsm.git?path=Assets/Plugins/UniFsm",
 ```
    
-# Basic Using
+## Basic Using
 First, add state enumeration type.
 ```c#
 private enum GameState
