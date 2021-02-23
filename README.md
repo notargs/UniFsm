@@ -1,6 +1,13 @@
 # UniFSM
 UniFsm is a simple state machine library.
 
+
+## Installation
+Add this line in Packages/manifest.json directly.
+```
+"com.notargs.unifsm": "https://github.com/notargs/UniFsm.git?path=Assets/Plugins/UniFsm",
+```
+   
 # Basic Using
 First, add state enumeration type.
 ```c#
