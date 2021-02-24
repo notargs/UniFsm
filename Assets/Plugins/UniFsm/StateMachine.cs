@@ -16,11 +16,24 @@ namespace UniFsm
             _currentState = defaultState;
         }
 
-        public void RegisterState(TState stateType, StateBehaviour<TState> stateBehaviour)
+        [Obsolete("Use RegisterStateBehaviour.")]
+        public void RegisterState(TState stateType, StateBehaviour<TState> stateBehaviour) => RegisterStateBehaviour(stateType, stateBehaviour);
+
+        public void RegisterStateBehaviour(TState stateType, StateBehaviour<TState> stateBehaviour)
         {
             _stateDictionary[stateType] = stateBehaviour;
         }
         
+        public void RegisterStateBehaviour(
+            TState stateType,
+            Func<OptionalEnum<TState>> tickFunc = default,
+            Action onEnabledFunc = default,
+            Action onDisabledFunc = default
+            )
+        {
+            _stateDictionary[stateType] = new FunctionStateBehaviour<TState>(tickFunc, onEnabledFunc, onDisabledFunc);
+        }
+
         public void Tick()
         {
             if (_isFirstFrame)

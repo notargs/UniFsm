@@ -69,8 +69,8 @@ public sealed class GameLoop : MonoBehaviour
         _stateMachine = new StateMachine<GameState>(GameState.Title);
         
         // Register state behaviours
-        _stateMachine.RegisterState(GameState.Title, new TitleStateBehaviour());
-        _stateMachine.RegisterState(GameState.Game, new GameStateBehaviour());
+        _stateMachine.RegisterStateBehaviour(GameState.Title, new TitleStateBehaviour());
+        _stateMachine.RegisterStateBehaviour(GameState.Game, new GameStateBehaviour());
     }
 
     private void Update()
@@ -83,6 +83,18 @@ public sealed class GameLoop : MonoBehaviour
         _stateMachine.Dispose();
     }
 }
+```
+
+## Register state behaviour by lambda expression
+```c#
+stateMachine.RegisterStateBehaviour(GameState.Game, () =>
+    {
+        Debug.Log("Game tick");
+        return OptionalEnum<MockState>.None;
+    },
+    () => Debug.Log("Game enabled"),
+    () => Debug.Log("Game disabled")
+);
 ```
 
 ## License
