@@ -5,7 +5,7 @@ UniFsm is a simple state machine library.
 ## Installation
 Add this line in Packages/manifest.json directly.
 ```json
-"com.notargs.unifsm": "https://github.com/notargs/UniFsm.git?path=Assets/Plugins/UniFsm",
+"com.notargs.unifsm": "https://github.com/notargs/UniFsm.git?path=Assets/Plugins/UniFsm#1.2.0",
 ```
    
 ## Basic Using
