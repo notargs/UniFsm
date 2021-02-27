@@ -104,5 +104,43 @@ stateMachine.RegisterStateBehaviour(GameState.Game, () =>
 );
 ```
 
+## UniTask support
+### UniTaskStateBehaviour
+```c#
+public sealed class TitleStateBehaviour : UniTaskStateBehaviour<GameState>
+{
+    public override async UniTask<GameState> RunAsync(IUniTaskAsyncEnumerable<AsyncUnit> onTick, CancellationToken cancellationToken)
+    {
+        try
+        {
+            Debug.Log("Title enabled");
+            await onTick.TakeWhile(_ => !Input.GetKeyDown(KeyCode.Z)).ForEachAsync(_ => Debug.Log("StateA Tick"), cancellationToken);
+            return GameState.Game;
+        }
+        finally
+        {
+            Debug.Log("Title disabled");
+        }
+    }
+}
+```
+### Function registration
+```
+stateMachine.RegisterStateBehaviour(GameState.Game, async (enumerable, token) =>
+{
+    try
+    {
+        Debug.Log("Title enabled");
+        await onTick.TakeWhile(_ => !Input.GetKeyDown(KeyCode.Z))
+            .ForEachAsync(_ => Debug.Log("StateA Tick"), cancellationToken);
+        return GameState.Game;
+    }
+    finally
+    {
+        Debug.Log("Title disabled");
+    }
+});
+```
+
 ## License
 This library is under the MIT License.
