@@ -125,7 +125,7 @@ public sealed class TitleStateBehaviour : UniTaskStateBehaviour<GameState>
 }
 ```
 ### Function registration
-```
+```c#
 stateMachine.RegisterStateBehaviour(GameState.Game, async (enumerable, token) =>
 {
     try
