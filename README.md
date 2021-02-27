@@ -1,5 +1,5 @@
 # UniFSM
-UniFsm is a simple state machine library.
+UniFsm is a simple state machine library for Unity.
 
 
 ## Installation
