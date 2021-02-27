@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks.Linq;
 using NUnit.Framework;
 using UniFsm;
 using UnityEngine;
@@ -68,6 +69,56 @@ namespace UnitTests
             LogAssert.Expect(LogType.Log, "StateA Tick");
             LogAssert.Expect(LogType.Log, "StateA Disabled");
             LogAssert.Expect(LogType.Log, "StateB Enabled");
+            LogAssert.Expect(LogType.Log, "StateB Tick");
+            LogAssert.Expect(LogType.Log, "StateB Disabled");
+        }
+
+        [Test]
+        public void RegisterUniTaskFunctionStateBehaviour()
+        {
+            var stateMachine = new StateMachine<MockState>(MockState.StateA);
+            stateMachine.RegisterStateBehaviour(MockState.StateA, async (enumerable, token) =>
+            {
+                try
+                {
+                    Debug.Log("StateA Enabled");
+                    await enumerable.Take(2).ForEachAsync(_ => Debug.Log("StateA Tick"), token);
+                    return MockState.StateB;
+                }
+                finally
+                {
+                    Debug.Log("StateA Disabled");
+                }
+            });
+            stateMachine.RegisterStateBehaviour(MockState.StateB, async (enumerable, token) =>
+                {
+                    try
+                    {
+                        Debug.Log("StateB Enabled");
+                        await enumerable.Take(2).ForEachAsync(_ => Debug.Log("StateB Tick"), token);
+                        while (true)
+                        {
+                            await enumerable.FirstOrDefaultAsync(token);
+                        }
+                    }
+                    finally
+                    {
+                        Debug.Log("StateB Disabled");
+                    }
+                }
+            );
+            for (var i = 0; i < 6; ++i)
+            {
+                stateMachine.Tick();
+            }
+            stateMachine.Dispose();
+
+            LogAssert.Expect(LogType.Log, "StateA Enabled");
+            LogAssert.Expect(LogType.Log, "StateA Tick");
+            LogAssert.Expect(LogType.Log, "StateA Tick");
+            LogAssert.Expect(LogType.Log, "StateA Disabled");
+            LogAssert.Expect(LogType.Log, "StateB Enabled");
+            LogAssert.Expect(LogType.Log, "StateB Tick");
             LogAssert.Expect(LogType.Log, "StateB Tick");
             LogAssert.Expect(LogType.Log, "StateB Disabled");
         }
