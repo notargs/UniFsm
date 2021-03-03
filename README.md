@@ -1,4 +1,4 @@
-# UniFSM
+# UniFsm
 UniFsm is a simple state machine library for Unity.
 
 
